@@ -30,7 +30,7 @@ def is_song_in_blacklist(song, blacklist):
 # 스포티파이 API 불러오기 ( 사용하는 방법은 README 참고 )
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     client_id='클라이언트 아이디',
-    client_secret='시크릿 토큰',
+    client_secret='클라이언트 시크릿 토큰',
     redirect_uri='http://localhost:8080',
     scope='playlist-modify-public'
 ))
@@ -61,9 +61,25 @@ with open('blacklist.txt', 'r') as f:
 
 log_file = open('log.txt', 'w')
 
+# 멜론노래를 스포티파이에 검색할땐 다른 노래로 검색하기
+replace_dict = {}
+with open('replace.txt', 'r', encoding='utf-8') as f:
+    for line in f:
+        melon_name, other_name = line.strip().split(' * ')
+        replace_dict[melon_name] = other_name
+
 # 크롤링한 멜론 차트 노래를 스포티파이에 검색하고 플레이리스트에 추가하기
 for title, artist in chart:
-    results = sp.search(f'{title}', type='track')
+    # 노래 제목이 replace.txt에 있다면, 대체 제목으로 검색
+    if title in replace_dict:
+        search_title = replace_dict[title]
+        log_file.write(f'\n\"{title}\" 해당 노래는 Replace.txt에 등록되어 있기 때문에 \"{search_title}\" 으로 검색되었습니다.\n\n')
+        print(f'\"{title}\"의 노래가 대체되어 \"{search_title}\"로 검색되었습니다.')
+    else:
+        search_title = title
+
+    results = sp.search(f'{search_title}', type='track')
+
     for track in results['tracks']['items']:
         artists = [a['name'] for a in track['artists']]
         spotify_song = f'\"{", ".join(artists)}\"의 \"{track["name"]}\"'
@@ -78,9 +94,8 @@ for title, artist in chart:
         log_file.write(f'Melon: \"{title}\", Melon Artist: \"{artist}\", Spotify: {spotify_song}, Spotify ID: {track["id"]}\n')
         print(f'플레이리스트에 성공적으로 추가되었습니다. 멜론: \"{title}\" / 스포티파이: {spotify_song} 노래가 추가되었습니다!')
         break
-
 current_time = datetime.now().strftime("%Y년 %m월 %d일 %H시 %M분에 자동 갱신됨")
-emoji_string = "💕 플레이리스트 하트 한번 눌러주세용~ 💕 - ⏰ " + current_time + " ⏰ - ⚠️ 오류가 있을 수 있습니다. 문의는 디스코드 \"yuuuubi\" 로 해주세용 ⚠️"
+emoji_string = "💕 플레이리스트 하트 한번 눌러주세용~ 💕 - ⏰ " + current_time + " ⏰ - ⚠️ 오류가 있을 수 있습니다. 문의는 디스코드 \"yuuuubi\" 로 해주세용 ⚠️ - 🐈 자동화 코드 소스 : https://github.com/Yubir/melon-to-spotify 🐈"
 sp.playlist_change_details(playlist_id, description=emoji_string)
 
 log_file.write(datetime.now().strftime("\n" + "%Y년 %m월 %d일 %H시 %M분에 자동 갱신 완료됨") + "\n")
