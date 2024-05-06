@@ -1,12 +1,5 @@
 # 🎶 플레이리스트 보기
-- [스포티파이에서 멜론차트 듣기](https://open.spotify.com/playlist/20R8anptqFQTGk4P2X6dRp?si=e5098eae6e6645ea)<br>
-[<img src="img/Melon.png" width=150 />](https://open.spotify.com/playlist/20R8anptqFQTGk4P2X6dRp?si=e5098eae6e6645ea)<br>
-
-- [스포티파이에서 TJ 노래방 인기차트 듣기](https://open.spotify.com/playlist/3lMWs2QjqGp3OuE6tV3zos?si=4991ce0e893344a5)<br>
- [<img src="img/Tj.png" width=150 />](https://open.spotify.com/playlist/3lMWs2QjqGp3OuE6tV3zos?si=4991ce0e893344a5)<br>
-
-- [스포티파이에서 TJ 노래방 일본 곡 차트 듣기](https://open.spotify.com/playlist/4DtmAMcrMGFPOya57Vu4q2?si=bf62b9de6d404b14)<br>
- [<img src="img/Tj-Jpop.png" width=150 />](https://open.spotify.com/playlist/4DtmAMcrMGFPOya57Vu4q2?si=bf62b9de6d404b14)<br>
+[<img src="img/Melon.png" width=150 />](https://open.spotify.com/playlist/20R8anptqFQTGk4P2X6dRp?si=e5098eae6e6645ea) [<img src="img/Tj.png" width=150 />](https://open.spotify.com/playlist/3lMWs2QjqGp3OuE6tV3zos?si=4991ce0e893344a5) [<img src="img/Tj-Jpop.png" width=150 />](https://open.spotify.com/playlist/4DtmAMcrMGFPOya57Vu4q2?si=bf62b9de6d404b14)
  
 # 📢 공지
 ```
