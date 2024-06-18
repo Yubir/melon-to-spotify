@@ -56,34 +56,13 @@ Queencard * (여자)아이들
 ベテルギウス(ドラマ'SUPER RICH' OST) * ベテルギウス
 ```
 
-# 👍 스포티파이 API 생성 방법
-- https://developer.spotify.com/dashboard 에 접속한다.
-- ![image](https://github.com/Yubir/melon-to-spotify/assets/101859341/43f0a9ae-aaf1-4e33-9a3f-2922063cab8e)
+# ⚙️ 환경 변수
+- 필수 환경 변수
+```SPOTIPY_CLIENT_ID```: Spotify 개발자 계정에서 발급받은 클라이언트 ID
+```SPOTIPY_CLIENT_SECRET```: Spotify 개발자 계정에서 발급받은 클라이언트 시크릿
 
-- Create app 을 누른다.
-- 자기 원하는대로 작성 후 마지막 Redirect URI 부분은 http://localhost:8080 로 한다.
-- ![image](https://github.com/Yubir/melon-to-spotify/assets/101859341/707279e5-7264-4f71-ab1e-6e6e27727f64)
-
-
-- Save를 누른 후 자기의 DASHBOARD에 들어간다.
-- ![image](https://github.com/Yubir/melon-to-spotify/assets/101859341/881817fe-7f48-4b3f-a08f-5367c7e322f5)
-
-
-- 들어가면 이런 모양인데 우측 상단에 Settings 버튼을 누른다.
-- 그 후 View client secret 을 누른 후에
-- ![image](https://github.com/Yubir/melon-to-spotify/assets/101859341/339c00cd-4005-495d-a327-64daf7aad35a)
-- ![image](https://github.com/Yubir/melon-to-spotify/assets/101859341/31165b32-fcb5-461a-8bc6-9cd5ced17742)
-
-
-- 둘 다 복사 한다.
-- 그 뒤 app.py에 들어가서
-- 32열에 client ID 를 적고
-- 33열에 client SECRET 을 적는다.
-- ![image](https://github.com/Yubir/melon-to-spotify/assets/101859341/521c4ec7-e87e-426b-a688-ab1b0f6b3d19)
-
-
-- 그 후 코드를 실행하면...
-- ![image](https://github.com/Yubir/melon-to-spotify/assets/101859341/43a83fcc-4327-4e90-be6e-9d25c788c4a5)
+- 선택적 환경 변수
+```SPOTIPY_REDIRECT_URI```: Spotify 인증 후 리디렉션될 URI (기본값: http://localhost:8080)
 
 # <a id="terms"></a> 📜 약관
 - [x] 불법 유포 절대 금지
