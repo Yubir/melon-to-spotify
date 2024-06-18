@@ -26,7 +26,7 @@ TJ 노래방 인기차트 플레이리스트하고 TJ JPOP 인기차트도 만�
 2. :two: [공지 확인하기(클릭)](#📢-공지)
 3. :three: [업데이트 로그 (클릭)](#📋-업데이트-로그)
 4. :four: [Blacklist.txt, Replace.txt 사용법 (클릭)](#🏷️-blacklisttxt와-replacetxt-사용법)
-5. :five: [스포티파이 API 생성 방법 (클릭)](#👍-스포티파이-api-생성-방법)
+5. :five: [환경 변수 (클릭)](#⚙️-환경-변수)
 6. :six: [이용 약관 (클릭)](#📜-약관)
 
 # 📋 업데이트 로그
@@ -57,12 +57,12 @@ Queencard * (여자)아이들
 ```
 
 # ⚙️ 환경 변수
-- 필수 환경 변수
-```SPOTIPY_CLIENT_ID```: Spotify 개발자 계정에서 발급받은 클라이언트 ID
-```SPOTIPY_CLIENT_SECRET```: Spotify 개발자 계정에서 발급받은 클라이언트 시크릿
+## 필수 환경 변수
+- ```SPOTIPY_CLIENT_ID```: Spotify 개발자 계정에서 발급받은 클라이언트 ID
+- ```SPOTIPY_CLIENT_SECRET```: Spotify 개발자 계정에서 발급받은 클라이언트 시크릿
 
-- 선택적 환경 변수
-```SPOTIPY_REDIRECT_URI```: Spotify 인증 후 리디렉션될 URI (기본값: http://localhost:8080)
+## 선택적 환경 변수
+- ```SPOTIPY_REDIRECT_URI```: Spotify 인증 후 리디렉션될 URI (기본값: http://localhost:8080)
 
 # <a id="terms"></a> 📜 약관
 - [x] 불법 유포 절대 금지
