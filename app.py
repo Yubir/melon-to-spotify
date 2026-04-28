@@ -8,36 +8,40 @@ import time
 import os
 from dotenv import load_dotenv
 import logging
-from logging.handlers import RotatingFileHandler
 
 load_dotenv()
 
-# 로그 설정
-def setup_logger():
-    log_dir = 'logs'
-    if not os.path.exists(log_dir):
-        os.makedirs(log_dir)
-    
-    log_file = os.path.join(log_dir, f'spotify_{datetime.now().strftime("%Y-%m-%d")}.log')
-    
-    logger = logging.getLogger('spotify_logger')
-    logger.setLevel(logging.INFO)
-    
-    file_handler = RotatingFileHandler(log_file, maxBytes=5*1024*1024, backupCount=5)
-    console_handler = logging.StreamHandler()
-    
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    file_handler.setFormatter(formatter)
-    console_handler.setFormatter(formatter)
-    
-    logger.addHandler(file_handler)
-    logger.addHandler(console_handler)
-    
-    return logger
+import sys, io
 
-logger = setup_logger()
+# 로그 설정
+log_dir = 'logs'
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
+
+logger = logging.getLogger('spotify_logger')
+logger.setLevel(logging.INFO)
+
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+
+console_handler = logging.StreamHandler(io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace'))
+console_handler.setFormatter(formatter)
+logger.addHandler(console_handler)
+
+def setup_file_logger():
+    """spotify() 실행 시마다 새 로그 파일 생성"""
+    # 기존 파일 핸들러 제거
+    for handler in logger.handlers[:]:
+        if isinstance(handler, logging.FileHandler):
+            handler.close()
+            logger.removeHandler(handler)
+    
+    log_file = os.path.join(log_dir, f'spotify_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.log')
+    file_handler = logging.FileHandler(log_file, encoding='utf-8')
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
 
 def spotify():
+    setup_file_logger()
     logger.info("자동 플리 시작")
     
     # 멜론사이트 크롤링
@@ -118,15 +122,24 @@ def spotify():
             logger.info(f'플리에 추가되었습니다 - Melon: "{title}" - "{artist}", Spotify: {spotify_song}')
             break
 
-    current_time = datetime.now().strftime("%Y년 %m월 %d일 %H시 %M분에 자동 갱신됨")
-    emoji_string = "💕 플리 하트 꾹~! 💕 - ⏰ " + current_time + " ⏰ - ❗️ 오류제보 디스코드: \"tpfls\" ❗️"
+    current_time = datetime.now().strftime("%Y년 %m월 %d일 %H시에 자동 갱신됨")
+    emoji_string = "⏰ " + current_time + " ⏰ 📌 매일 자정+1/정오에 업데이트됩니다."
     sp.playlist_change_details(playlist_id, description=emoji_string)
     logger.info("플리 설명 업데이트 완료")
 
+    current_date = datetime.now().strftime("%y%m%d")
+    playlist_name = f"⏰{current_date} 실시간 멜론차트 TOP 100 Melon Charts"
+    sp.playlist_change_details(playlist_id, name=playlist_name)
+    logger.info("플리 제목 업데이트 완료")
+
     logger.info("플리 업데이트 완료")
+
+# 켜졌으니 한번 실행
+spotify()
 
 # spotify() # debug
 schedule.every().day.at("12:00").do(spotify) # 매일 12시에 실행
+schedule.every().day.at("00:00").do(spotify) # 매일 자정에 실행
 
 logger.info("스케줄러 스타또!")
 
